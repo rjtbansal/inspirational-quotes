@@ -1,12 +1,25 @@
-import { useState } from 'react';
+import { ChangeEventHandler, FormEventHandler, PropsWithChildren } from 'react';
 
-const Quotes = ({ children, count, onSubmit, onChange }: any) => {
+type QuotesProps = {
+  count: number;
+  // note these types for onChange and onSubmit. ? just means that this can be optional type
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onSubmit: FormEventHandler<HTMLFormElement>;
+};
+
+// To type children prop React provides PropsWithChildren wrapper so we dont need to type children props
+const Quotes = ({
+  children,
+  count,
+  onSubmit,
+  onChange,
+}: PropsWithChildren<QuotesProps>) => {
   return (
     <section className="flex flex-col gap-8">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          onChange(e);
+          onSubmit(e);
         }}
       >
         <label htmlFor="number-of-quotes-to-load" className="block">
